@@ -3,10 +3,10 @@
 /**
  * create_array - function that creates an array of chars
  * and initializes it with a specific char.
- * 
+ *
  * @size: number elements in the array
  * @c: char
- * 
+ *
  * Return: a pointer to the array, or NULL if it fails
  */
 
