@@ -10,32 +10,24 @@
  */
 void print_remaining_days(int month, int day, int year)
 {
-	int months_cum_days[] = {31, 59, 90, 120, 151, 181, 212, 243, 273, 0, 0, 0};
+    int days_in_month[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int days_remaining = 0;
+    int i;
 
-	months_cum_days[9] = 304;
-	months_cum_days[10] = 334;
-	months_cum_days[11] = 365;
+    // Check for leap year
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+    {
+        days_in_month[2] = 29; // February has 29 days in a leap year
+    }
 
-	if ((year % 4 == 0 && year > 1582) && (year % 100 != 0 || year % 400 == 0))
-	{
-		if (month > 2)
-			day++;
+    // Calculate the total days remaining
+    for (i = month + 1; i <= 12; i++)
+    {
+        days_remaining += days_in_month[i];
+    }
+    days_remaining += days_in_month[month] - day;
 
-		printf("Day of the year: %d\n", day);
-		printf("Remaining days: %d\n", 366 - day);
-	}
-	else
-	{
-		if (month >= 2 && day > months_cum_days[month - 1])
-		{
-			int day_of_month = day - months_cum_days[month - 2];
-
-			printf("Invalid date: %02d/%02d/%04d\n", month, day_of_month, year);
-		}
-		else
-		{
-			printf("Day of the year: %d\n", day);
-			printf("Remaining days: %d\n", 365 - day);
-		}
-	}
+    // Print the results
+    printf("Day of the year: %d\n", convert_day(month, day));
+    printf("Remaining days: %d\n", days_remaining);
 }
